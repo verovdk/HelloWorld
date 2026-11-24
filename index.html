@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Biological Survey Trip</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#325596" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Dexie.js for reliable offline IndexedDB storage -->
+  <script src="https://unpkg.com"></script>
+</head>
+<body>
+  <!-- Top App Bar -->
+  <header class="top-bar">
+    <div class="bar-left">
+      <button id="btn-back" class="icon-btn" title="Back">&#8592;</button>
+      <h1>Biological Survey Trip</h1>
+    </div>
+    <div class="bar-actions">
+      <button id="btn-export" class="icon-btn" title="Export CSV">&#127760;&#8593;</button>
+      <button id="btn-add" class="icon-btn" title="New Trip">&#43;</button>
+      <button id="btn-edit" class="icon-btn" title="Toggle Edit Mode">&#9998;</button>
+      <button id="btn-delete" class="icon-btn" title="Delete Trip">&#128465;</button>
+    </div>
+  </header>
+
+  <!-- Main Split Layout -->
+  <main class="split-container">
+    <!-- Left Master List -->
+    <aside class="list-pane">
+      <div class="filter-bar">
+        <input type="text" id="filter-input" placeholder="Filter by method, species, recorder..." />
+        <button id="btn-clear-filter" title="Clear Filter">&#10005;</button>
+      </div>
+      <div id="trip-list" class="trip-list"></div>
+      <footer class="list-footer">
+        <span id="item-count">0 items in list</span>
+        <span id="mode-label">Data Entry Mode</span>
+      </footer>
+    </aside>
+
+    <!-- Right Detail Form -->
+    <section class="detail-pane">
+      <form id="trip-form" autocomplete="off">
+        <div class="form-grid">
+          <div class="field">
+            <label for="date">Date (dd/mm/yyyy)</label>
+            <input type="text" id="date" class="field-green" placeholder="dd/mm/yyyy" required />
+          </div>
+          <div class="field">
+            <label for="samplingMethod">Sampling method group</label>
+            <input type="text" id="samplingMethod" class="field-green" required />
+          </div>
+          <div class="field">
+            <label for="targetedSpecies">Targeted species</label>
+            <input type="text" id="targetedSpecies" class="field-green" required />
+          </div>
+
+          <div class="field">
+            <label for="purpose">Purpose</label>
+            <input type="text" id="purpose" class="field-green" />
+          </div>
+          <div class="field">
+            <label for="type">Type</label>
+            <input type="text" id="type" class="field-green" />
+          </div>
+          <div class="field">
+            <label for="vessel">Vessel</label>
+            <input type="text" id="vessel" class="field-green" />
+          </div>
+
+          <div class="field">
+            <label for="project">Project</label>
+            <input type="text" id="project" class="field-green" />
+          </div>
+          <div class="field">
+            <label for="recorder1">Recorder name</label>
+            <input type="text" id="recorder1" class="field-green" />
+          </div>
+          <div class="field">
+            <label for="recorder2">Recorder name 2</label>
+            <input type="text" id="recorder2" class="field-white" />
+          </div>
+
+          <div class="field">
+            <label for="bioregion">Bioregion</label>
+            <select id="bioregion" class="field-green">
+              <option value="">-- Select Bioregion --</option>
+              <option value="North Coast">North Coast</option>
+              <option value="Gascoyne Coast">Gascoyne Coast</option>
+              <option value="West Coast">West Coast</option>
+              <option value="South Coast">South Coast</option>
+            </select>
+          </div>
+          <div class="field-split">
+            <div class="field">
+              <label for="tideCycle">Tide cycle</label>
+              <input type="text" id="tideCycle" class="field-green" />
+            </div>
+            <div class="field">
+              <label for="tideRange">Tide range</label>
+              <input type="number" step="0.1" id="tideRange" class="field-green right-align" />
+            </div>
+          </div>
+          <div class="field"></div>
+        </div>
+
+        <div class="field full-width">
+          <label for="comments">Comments</label>
+          <textarea id="comments" class="field-red" rows="2"></textarea>
+        </div>
+
+        <!-- Read-only Metadata Footer -->
+        <div class="meta-grid">
+          <div class="meta-row">
+            <span class="meta-label">Guid</span>
+            <span id="meta-guid" class="meta-value">-</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Site #</span>
+            <input type="number" id="siteNumber" class="meta-input" />
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Date created on mobile</span>
+            <span id="meta-created" class="meta-value">-</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Record Status</span>
+            <span id="meta-status" class="meta-value">New</span>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
